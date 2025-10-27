@@ -17,7 +17,7 @@ use the time that you're saving to start flossing more often. 😬
 To learn more, visit [ohmyz.sh](https://ohmyz.sh), follow [@ohmyzsh](https://x.com/ohmyzsh) on X (formerly
 Twitter), and join us on [Discord](https://discord.gg/ohmyzsh).
 
-[![CI](https://github.com/ohmyzsh/ohmyzsh/workflows/CI/badge.svg)](https://github.com/ohmyzsh/ohmyzsh/actions?query=workflow%3ACI)
+[![CI](https://github.com/reagin/ohmyzsh/workflows/CI/badge.svg)](https://github.com/reagin/ohmyzsh/actions?query=workflow%3ACI)
 [![X (formerly Twitter) Follow](https://img.shields.io/twitter/follow/ohmyzsh?label=%40ohmyzsh&logo=x&style=flat)](https://twitter.com/intent/follow?screen_name=ohmyzsh)
 [![Mastodon Follow](https://img.shields.io/mastodon/follow/111169632522566717?label=%40ohmyzsh&domain=https%3A%2F%2Fmstdn.social&logo=mastodon&style=flat)](https://mstdn.social/@ohmyzsh)
 [![Discord server](https://img.shields.io/discord/642496866407284746)](https://discord.gg/ohmyzsh)
@@ -91,18 +91,18 @@ command-line with either `curl`, `wget` or another similar tool.
 
 | Method    | Command                                                                                           |
 | :-------- | :------------------------------------------------------------------------------------------------ |
-| **curl**  | `sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"` |
-| **wget**  | `sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"`   |
-| **fetch** | `sh -c "$(fetch -o - https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"` |
+| **curl**  | `sh -c "$(curl -fsSL https://raw.githubusercontent.com/reagin/ohmyzsh/custom/tools/install.sh)"` |
+| **wget**  | `sh -c "$(wget -O- https://raw.githubusercontent.com/reagin/ohmyzsh/custom/tools/install.sh)"`   |
+| **fetch** | `sh -c "$(fetch -o - https://raw.githubusercontent.com/reagin/ohmyzsh/custom/tools/install.sh)"` |
 
 Alternatively, the installer is also mirrored outside GitHub. Using this URL instead may be required if you're
 in a country like China or India (for certain ISPs), that blocks `raw.githubusercontent.com`:
 
 | Method    | Command                                           |
 | :-------- | :------------------------------------------------ |
-| **curl**  | `sh -c "$(curl -fsSL https://install.ohmyz.sh/)"` |
-| **wget**  | `sh -c "$(wget -O- https://install.ohmyz.sh/)"`   |
-| **fetch** | `sh -c "$(fetch -o - https://install.ohmyz.sh/)"` |
+| **curl**  | `sh -c "$(curl -fsSL https://cdn.jsdelivr.net/gh/reagin/ohmyzsh@custom/tools/install.sh)"` |
+| **wget**  | `sh -c "$(wget -O- https://cdn.jsdelivr.net/gh/reagin/ohmyzsh@custom/tools/install.sh)"`   |
+| **fetch** | `sh -c "$(fetch -o - https://cdn.jsdelivr.net/gh/reagin/ohmyzsh@custom/tools/install.sh)"` |
 
 _Note that any previous `.zshrc` will be renamed to `.zshrc.pre-oh-my-zsh`. After installation, you can move
 the configuration you want to preserve into the new `.zshrc`._
@@ -113,12 +113,12 @@ It's a good idea to inspect the install script from projects you don't yet know.
 downloading the install script first, looking through it so everything looks normal, then running it:
 
 ```sh
-wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+wget https://raw.githubusercontent.com/reagin/ohmyzsh/custom/tools/install.sh
 sh install.sh
 ```
 
 If the above URL times out or otherwise fails, you may have to substitute the URL for
-`https://install.ohmyz.sh` to be able to get the script.
+`https://cdn.jsdelivr.net/gh/reagin/ohmyzsh@custom/tools/install.sh` to be able to get the script.
 
 ## Using Oh My Zsh
 
@@ -265,17 +265,17 @@ If you're running the Oh My Zsh install script as part of an automated install, 
 shell, and it also won't run `zsh` when the installation has finished.
 
 ```sh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/reagin/ohmyzsh/custom/tools/install.sh)" "" --unattended
 ```
 
 If you're in China, India, or another country that blocks `raw.githubusercontent.com`, you may have to
-substitute the URL for `https://install.ohmyz.sh` for it to install.
+substitute the URL for `https://cdn.jsdelivr.net/gh/reagin/ohmyzsh@custom/tools/install.sh` for it to install.
 
 #### Installing From A Forked Repository
 
 The install script also accepts these variables to allow the installation of a different repository:
 
-- `REPO` (default: `ohmyzsh/ohmyzsh`): this takes the form of `owner/repository`. If you set this variable,
+- `REPO` (default: `reagin/ohmyzsh`): this takes the form of `owner/repository`. If you set this variable,
   the installer will look for a repository at `https://github.com/{owner}/{repository}`.
 
 - `REMOTE` (default: `https://github.com/${REPO}.git`): this is the full URL of the git repository clone. You
@@ -284,14 +284,14 @@ The install script also accepts these variables to allow the installation of a d
 
   _NOTE: it's incompatible with setting the `REPO` variable. This setting will take precedence._
 
-- `BRANCH` (default: `master`): you can use this setting if you want to change the default branch to be
+- `BRANCH` (default: `custom`): you can use this setting if you want to change the default branch to be
   checked out when cloning the repository. This might be useful for testing a Pull Request, or if you want to
-  use a branch other than `master`.
+  use a branch other than `custom`.
 
 For example:
 
 ```sh
-REPO=apjanke/oh-my-zsh BRANCH=edge sh install.sh
+REPO=reagin/ohmyzsh BRANCH=custom sh install.sh
 ```
 
 #### Manual Installation
@@ -299,7 +299,7 @@ REPO=apjanke/oh-my-zsh BRANCH=edge sh install.sh
 ##### 1. Clone The Repository <!-- omit in toc -->
 
 ```sh
-git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
+git clone https://github.com/reagin/ohmyzsh.git ~/.oh-my-zsh
 ```
 
 ##### 2. _Optionally_, Backup Your Existing `~/.zshrc` File <!-- omit in toc -->

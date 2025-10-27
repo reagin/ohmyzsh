@@ -20,9 +20,9 @@
 #             [1] https://zsh.sourceforge.io/Doc/Release/Parameters.html#index-ZDOTDIR
 #             [2] https://zsh.sourceforge.io/Doc/Release/Files.html#index-ZDOTDIR_002c-use-of
 #   ZSH     - path to the Oh My Zsh repository folder (default: $HOME/.oh-my-zsh)
-#   REPO    - name of the GitHub repo to install from (default: ohmyzsh/ohmyzsh)
+#   REPO    - name of the GitHub repo to install from (default: reagin/ohmyzsh)
 #   REMOTE  - full remote URL of the git repo to install (default: GitHub via HTTPS)
-#   BRANCH  - branch to check out immediately after install (default: master)
+#   BRANCH  - branch to check out immediately after install (default: custom)
 #
 # Other options:
 #   CHSH                   - 'no' means the installer will not change the default shell (default: yes)
@@ -70,9 +70,9 @@ fi
 ZSH="${ZSH:-$HOME/.oh-my-zsh}"
 
 # Default settings
-REPO=${REPO:-ohmyzsh/ohmyzsh}
+REPO=${REPO:-reagin/ohmyzsh}
 REMOTE=${REMOTE:-https://github.com/${REPO}.git}
-BRANCH=${BRANCH:-master}
+BRANCH=${BRANCH:-custom}
 
 # Other options
 CHSH=${CHSH:-yes}
@@ -343,7 +343,7 @@ setup_zshrc() {
       echo "${FMT_YELLOW}Found ${zdot}/.zshrc.${FMT_RESET} ${FMT_GREEN}Keeping...${FMT_RESET}"
       return
     fi
-    
+
     if [ $OVERWRITE_CONFIRMATION != "no" ]; then
       # Ask user for confirmation before backing up and overwriting
       echo "${FMT_YELLOW}Found ${zdot}/.zshrc."
