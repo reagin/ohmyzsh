@@ -1,5 +1,9 @@
 # custom files
-custom/
+custom/*
+# custom files but exclude
+!custom/plugins/
+!custom/themes/
+!custom/aliases.zsh
 
 # temp files directories
 cache/

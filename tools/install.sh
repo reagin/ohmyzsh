@@ -393,6 +393,30 @@ setup_zshrc() {
   echo
 }
 
+setup_zshenv() {
+  local zenv="$zdot/.zshenv"
+
+  if [ ! -f "$zenv" ]; then
+    echo "${FMT_BLUE}Creating minimal $zenv...${FMT_RESET}"
+    cat >"$zenv" <<'EOF'
+# ~/.zshenv - user environment settings
+
+# Disable system-wide compinit to avoid duplicate runs
+skip_global_compinit=1
+
+# Example: set ZDOTDIR if you keep configs elsewhere
+# export ZDOTDIR="$HOME/.config/zsh"
+EOF
+    echo "${FMT_GREEN}Using the Oh My Zsh template file and adding it to $zdot/.zshenv.${FMT_RESET}"
+  else
+    # Make sure skip_global_compinit exists
+    if ! grep -q "skip_global_compinit" "$zenv"; then
+      echo "skip_global_compinit=1" >>"$zenv"
+      echo "${FMT_YELLOW}Added skip_global_compinit=1 to existing $zenv${FMT_RESET}"
+    fi
+  fi
+}
+
 setup_shell() {
   # Skip setup if the user wants or stdin is closed (not running interactively).
   if [ "$CHSH" = no ]; then
@@ -563,6 +587,7 @@ EOF
 
   setup_ohmyzsh
   setup_zshrc
+  setup_zshenv
   setup_shell
 
   print_success
