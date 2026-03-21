@@ -27,6 +27,12 @@ if [ -e ~/.zshrc ]; then
   mv ~/.zshrc "${ZSHRC_SAVE}"
 fi
 
+if [ -e ~/.zshenv ]; then
+  ZSHENV_SAVE=~/.zshenv.omz-uninstalled-$(date +%Y-%m-%d_%H-%M-%S)
+  echo "Found ~/.zshenv -- Renaming to ${ZSHENV_SAVE}"
+  mv ~/.zshenv "${ZSHENV_SAVE}"
+fi
+
 echo "Looking for original zsh config..."
 ZSHRC_ORIG=~/.zshrc.pre-oh-my-zsh
 if [ -e "$ZSHRC_ORIG" ]; then

@@ -20,9 +20,9 @@
 #             [1] https://zsh.sourceforge.io/Doc/Release/Parameters.html#index-ZDOTDIR
 #             [2] https://zsh.sourceforge.io/Doc/Release/Files.html#index-ZDOTDIR_002c-use-of
 #   ZSH     - path to the Oh My Zsh repository folder (default: $HOME/.oh-my-zsh)
-#   REPO    - name of the GitHub repo to install from (default: ohmyzsh/ohmyzsh)
+#   REPO    - name of the GitHub repo to install from (default: reagin/ohmyzsh)
 #   REMOTE  - full remote URL of the git repo to install (default: GitHub via HTTPS)
-#   BRANCH  - branch to check out immediately after install (default: master)
+#   BRANCH  - branch to check out immediately after install (default: custom)
 #
 # Other options:
 #   CHSH                   - 'no' means the installer will not change the default shell (default: yes)
@@ -70,9 +70,9 @@ fi
 ZSH="${ZSH:-$HOME/.oh-my-zsh}"
 
 # Default settings
-REPO=${REPO:-ohmyzsh/ohmyzsh}
+REPO=${REPO:-reagin/ohmyzsh}
 REMOTE=${REMOTE:-https://github.com/${REPO}.git}
-BRANCH=${BRANCH:-master}
+BRANCH=${BRANCH:-custom}
 
 # Other options
 CHSH=${CHSH:-yes}
@@ -343,7 +343,7 @@ setup_zshrc() {
       echo "${FMT_YELLOW}Found ${zdot}/.zshrc.${FMT_RESET} ${FMT_GREEN}Keeping...${FMT_RESET}"
       return
     fi
-    
+
     if [ $OVERWRITE_CONFIRMATION != "no" ]; then
       # Ask user for confirmation before backing up and overwriting
       echo "${FMT_YELLOW}Found ${zdot}/.zshrc."
@@ -391,6 +391,30 @@ setup_zshrc() {
   mv -f "$zdot/.zshrc-omztemp" "$zdot/.zshrc"
 
   echo
+}
+
+setup_zshenv() {
+  local zenv="$zdot/.zshenv"
+
+  if [ ! -f "$zenv" ]; then
+    echo "${FMT_BLUE}Creating minimal $zenv...${FMT_RESET}"
+    cat >"$zenv" <<'EOF'
+# ~/.zshenv - user environment settings
+
+# Disable system-wide compinit to avoid duplicate runs
+skip_global_compinit=1
+
+# Example: set ZDOTDIR if you keep configs elsewhere
+# export ZDOTDIR="$HOME/.config/zsh"
+EOF
+    echo "${FMT_GREEN}Using the Oh My Zsh template file and adding it to $zdot/.zshenv.${FMT_RESET}"
+  else
+    # Make sure skip_global_compinit exists
+    if ! grep -q "skip_global_compinit" "$zenv"; then
+      echo "skip_global_compinit=1" >>"$zenv"
+      echo "${FMT_YELLOW}Added skip_global_compinit=1 to existing $zenv${FMT_RESET}"
+    fi
+  fi
 }
 
 setup_shell() {
@@ -563,6 +587,7 @@ EOF
 
   setup_ohmyzsh
   setup_zshrc
+  setup_zshenv
   setup_shell
 
   print_success
