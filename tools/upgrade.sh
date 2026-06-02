@@ -337,6 +337,12 @@ fi
 # go back to HEAD previous to update
 git checkout -q "$last_head" --
 
+# Sync plugins and themes tracked as git submodules with the checked-out commit
+if ! git submodule update --init --recursive --quiet; then
+  ret=1
+  printf "${RED}%s${RESET}\n" 'There was an error updating git submodules. Try again later?'
+fi
+
 # Unset git-config values set just for the upgrade
 case "$resetAutoStash" in
   "") git config --unset rebase.autoStash ;;

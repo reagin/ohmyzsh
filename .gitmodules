@@ -1,0 +1,3 @@
+[submodule "custom/plugins/zsh-claudecode-completion"]
+	path = custom/plugins/zsh-claudecode-completion
+	url = https://github.com/wbingli/zsh-claudecode-completion.git
